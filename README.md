@@ -39,4 +39,5 @@ exploration. Bioinformatics. 2012 Feb 1;28(3):419-20. doi:
 Central PMCID: PMC3268239.
 
 ## License and Disclaimer
-(C) Mikhail Dozmorov  2013, Academic Free License ("AFL") v. 3.0
+refgene.pl is written by Krista Bean
+(C) Mikhail Dozmorov, Krista Bean  2013, Academic Free License ("AFL") v. 3.0
