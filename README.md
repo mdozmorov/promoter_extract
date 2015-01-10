@@ -6,7 +6,7 @@ Note each gene may have different isoforms = different TSSs. The pipeline extrac
 
 ## Requirements
 Linux environment
-* [Perl](http://www.perl.org), specifically, DBD::MySQL package. See [Install MySQL and DBD::MySQL on Mac OS X](http://bixsolutions.net/forum/thread-8.html) for instructions. [Python mysqldb: Library not loaded: libmysqlclient.18.dylib](https://stackoverflow.com/questions/6383310/python-mysqldb-library-not-loaded-libmysqlclient-18-dylib) is also helpful
+* [Perl](http://www.perl.org), specifically, DBD::MySQL package. See [Install MySQL and DBD::MySQL on Mac OS X](http://bixsolutions.net/forum/thread-8.html) for instructions. [Python mysqldb: Library not loaded: libmysqlclient.18.dylib](https://stackoverflow.com/questions/6383310/python-mysqldb-library-not-loaded-libmysqlclient-18-dylib) is also helpful.
 * [BedTools](https://code.google.com/p/bedtools)
 
 ## Input
@@ -21,7 +21,13 @@ Genomic coordinates are printed into standard output; redirect into any file.
 
 Note that content of the databases may change with time. Hence, the extracted coordinates may also change with time.
 
-## Usage
+There is alwo Python2 implementation of the same flunctionality. `refgene.py` is a very straightforward MySQL query program (hg19 only), `refgene2.py` processes gene lists in chunks, to avoid connectiobn timeout problem.
+
+## Usabe (Python)
+```
+python refgene.py [input_file] | bedtools sort | mergeBed -s -c 4 -o distinct -i - > [output_file]
+
+## Usage (Perl)
 ```
 perl refgene.pl [input_file] [db_name] | sort -k1,1 -k2,2n | mergeBed -s -i - > [output_file]
 ```
