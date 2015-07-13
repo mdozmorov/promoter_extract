@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 #
 # Given a list of gene names in a file, get genomic coordinates of the promoters
-# A promoter is defined as a region 2000bp upstream of transcription start site
+# A promoter is defined as a region 2000bp upstream, 500bp downstream of transcription start site
 # Strand specificity matters. HG19 is currently hard-coded
 #
-# Example: pyton refgene.py txt/all.refGene.txt | bedtools sort | mergeBed -s -nms -i > all.refGene.bed
+# Example: python refgene2.py txt/all.refGene.txt | bedtools sort -i - | mergeBed -s -c 4 -o distinct -i - > all.refGene2.bed
 # Another output is "notfound" file, containing genes that weren't found in the database
 #
 # https://stackoverflow.com/questions/27309187/django-exception-value-2013-2013-lost-connection-to-mysql-server-during-que
@@ -46,9 +46,9 @@ if __name__ == "__main__":
         for row in d:
             genesout.append(row[3]) # Collect genes that were obtained from the database
             if row[4] == "+":
-                print "\t".join([row[0], str(row[1]-2000), str(row[1]), row[3], "0", row[4]])
+                print "\t".join([row[0], str(row[1]-2000), str(row[1]+500), row[3], "0", row[4]])
             else:
-                print "\t".join([row[0], str(row[2]-2000), str(row[2]), row[3], "0", row[4]])
+                print "\t".join([row[0], str(row[2]-500), str(row[2]+2000), row[3], "0", row[4]])
         genesdiff = list(set(glist) - set(genesout)) # Get the difference between input and output gene lists
         h2.write("\n".join(genesdiff)) # Save genes that were not found in the current chunk
 
